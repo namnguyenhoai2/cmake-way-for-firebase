@@ -1,12 +1,13 @@
 import org.gradle.internal.os.OperatingSystem
 
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'  // Google Services plugin
 
 android {
     compileSdkVersion PROP_COMPILE_SDK_VERSION.toInteger()
 
     defaultConfig {
-        applicationId "com.firebase.popsiclerunner"
+        applicationId "com.zgezt.firecocos2dx"
         minSdkVersion PROP_MIN_SDK_VERSION
         targetSdkVersion PROP_TARGET_SDK_VERSION
         versionCode 1
@@ -89,6 +90,12 @@ android.applicationVariants.all { variant ->
         }
     }
     tasks.getByName("pre${targetName}Build").dependsOn copyTaskName
+}
+
+apply from: "$gradle.firebase_cpp_sdk_dir/Android/firebase_dependencies.gradle"
+firebaseCpp.dependencies {
+    analytics
+    messaging
 }
 
 dependencies {

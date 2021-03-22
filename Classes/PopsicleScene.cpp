@@ -19,6 +19,9 @@
 #include "EnemyManager.h"
 #include "GameOverMenu.h"
 
+#include <firebase/analytics.h>
+#include <firebase/analytics/event_names.h>
+
 USING_NS_CC;
 
 cocos2d::Scene *PopsicleScene::createScene() {
@@ -168,6 +171,10 @@ void PopsicleScene::gameOver() {
         gameOverMenu->setPosition(Vec2::ZERO);
 
         // TODO: log kEventLevelEnd here!
+        {
+            using namespace firebase;
+            analytics::LogEvent(analytics::kEventLevelEnd, "distance", _lastDistance);
+        }
 
         _gameOver = true;
     }
@@ -185,6 +192,8 @@ void PopsicleScene::updateDistanceLabel() {
 
 void PopsicleScene::onEnter() {
     // TODO: log kEventLevelStart here
+    using namespace firebase;
+    analytics::LogEvent(analytics::kEventLevelStart);
 
     Node::onEnter();
 }
