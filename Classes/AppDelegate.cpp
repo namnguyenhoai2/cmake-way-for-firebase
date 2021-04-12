@@ -26,6 +26,9 @@
 #include "PopsicleScene.h"
 #include "MainMenuScene.h"
 
+#include <firebase/app.h>
+#include <firebase/analytics.h>
+
 // #define USE_AUDIO_ENGINE 1
 
 #if USE_AUDIO_ENGINE
@@ -109,6 +112,12 @@ bool AppDelegate::applicationDidFinishLaunching() {
     register_all_packages();
 
     // TODO: create a firebase app and initialize analytics here
+    {
+        using namespace firebase;
+        auto app = App::Create(JniHelper::getEnv(), JniHelper::getActivity());
+        analytics::Initialize(*app);
+    }
+
 
     // create a scene. it's an autorelease object
     auto scene = MainMenuScene::createScene();
