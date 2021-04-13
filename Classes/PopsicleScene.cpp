@@ -35,12 +35,11 @@ bool PopsicleScene::init()
 
     // TODO: namnh
 #if defined(__ANDROID__)
-    app = firebase::App::Create(firebase::AppOptions(), JniHelper::getEnv(), JniHelper::getActivity());
+    firebaseApp = firebase::App::Create(firebase::AppOptions(), JniHelper::getEnv(), JniHelper::getActivity());
 #else
-    app = firebase::App::Create(firebase::AppOptions());
+    firebaseApp = firebase::App::Create(firebase::AppOptions());
 #endif  // defined(__ANDROID__)
-
-    auth_ = firebase::auth::Auth::GetAuth(app);
+    firebaseAuth = firebase::auth::Auth::GetAuth(firebaseApp);
     // namnh end
 
 
@@ -211,9 +210,9 @@ void PopsicleScene::onEnter() {
     analytics::LogEvent(analytics::kEventLevelStart);
 
     // TODO: namnh test
-        auth_ = firebase::auth::Auth::GetAuth(app);
+
         firebase::Future<firebase::auth::User*> result =
-            auth_->CreateUserWithEmailAndPassword("namnhtest222@gmail.com", "123456");
+            firebaseAuth->CreateUserWithEmailAndPassword("namnhtest222@gmail.com", "123456");
     // namnh end
 
     Node::onEnter();
