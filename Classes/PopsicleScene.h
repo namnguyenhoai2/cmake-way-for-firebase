@@ -21,6 +21,10 @@
 
 #include "cocos2d.h"
 #include "PopsiclePlayer.h"
+// namnh add
+#include "firebase/auth.h"
+#include "firebase/auth/credential.h"
+#include "firebase/auth/user.h"
 
 class PopsicleScene : public cocos2d::Scene {
 public:
@@ -53,6 +57,10 @@ private:
     float _lastDistance = 0;
 
     bool _gameOver = false;
+
+    firebase::auth::Auth* auth_ = NULL;
+    firebase::AppOptions *AppOp = NULL;
+    firebase::App* app = NULL;
 };
 
 

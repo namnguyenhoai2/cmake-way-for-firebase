@@ -172,4 +172,4 @@ if(LINUX OR WINDOWS)
 endif()
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/third_party/firebase_cpp_sdk)
-target_link_libraries(${APP_NAME} firebase_analytics firebase_app firebase_messaging)
+target_link_libraries(${APP_NAME} firebase_analytics firebase_app firebase_messaging firebase_functions firebase_auth firebase_database)

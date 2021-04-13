@@ -22,13 +22,22 @@
 #include <firebase/analytics.h>
 #include <firebase/analytics/event_names.h>
 
+
+
 USING_NS_CC;
 
 cocos2d::Scene *PopsicleScene::createScene() {
     return PopsicleScene::create();
 }
 
-bool PopsicleScene::init() {
+bool PopsicleScene::init()
+{
+
+    // namnh
+    AppOp = new firebase::AppOptions();
+    app = firebase::App::GetInstance();
+    auth_ = firebase::auth::Auth::GetAuth(app);
+
     auto physicsCreated = Scene::initWithPhysics();
     if (!physicsCreated) {
         return false;
@@ -194,6 +203,11 @@ void PopsicleScene::onEnter() {
     // TODO: log kEventLevelStart here
     using namespace firebase;
     analytics::LogEvent(analytics::kEventLevelStart);
+
+    // namnh test
+        auth_ = firebase::auth::Auth::GetAuth(app);
+    firebase::Future<firebase::auth::User*> result =
+            auth_->CreateUserWithEmailAndPassword("namnhtest@gmail.com", "123456");
 
     Node::onEnter();
 }
