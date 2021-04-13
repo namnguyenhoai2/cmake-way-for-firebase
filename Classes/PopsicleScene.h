@@ -58,9 +58,10 @@ private:
 
     bool _gameOver = false;
 
+    // TODO: namnh add
     firebase::auth::Auth* auth_ = NULL;
-    firebase::AppOptions *AppOp = NULL;
     firebase::App* app = NULL;
+    // namnh end
 };
 
 

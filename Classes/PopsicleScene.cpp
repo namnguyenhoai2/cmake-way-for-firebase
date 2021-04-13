@@ -33,10 +33,16 @@ cocos2d::Scene *PopsicleScene::createScene() {
 bool PopsicleScene::init()
 {
 
-    // namnh
-    AppOp = new firebase::AppOptions();
-    app = firebase::App::GetInstance();
+    // TODO: namnh
+#if defined(__ANDROID__)
+    app = firebase::App::Create(firebase::AppOptions(), JniHelper::getEnv(), JniHelper::getActivity());
+#else
+    app = firebase::App::Create(firebase::AppOptions());
+#endif  // defined(__ANDROID__)
+
     auth_ = firebase::auth::Auth::GetAuth(app);
+    // namnh end
+
 
     auto physicsCreated = Scene::initWithPhysics();
     if (!physicsCreated) {
@@ -204,10 +210,11 @@ void PopsicleScene::onEnter() {
     using namespace firebase;
     analytics::LogEvent(analytics::kEventLevelStart);
 
-    // namnh test
+    // TODO: namnh test
         auth_ = firebase::auth::Auth::GetAuth(app);
-    firebase::Future<firebase::auth::User*> result =
-            auth_->CreateUserWithEmailAndPassword("namnhtest@gmail.com", "123456");
+        firebase::Future<firebase::auth::User*> result =
+            auth_->CreateUserWithEmailAndPassword("namnhtest222@gmail.com", "123456");
+    // namnh end
 
     Node::onEnter();
 }
